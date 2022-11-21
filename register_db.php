@@ -10,20 +10,24 @@
         $password_1 = mysqli_real_escape_string($conn, $_POST['password_1']);
         $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
         
-        if(empty($username)) {
+        if (empty($username)) {
             array_push($errors, "Username is required");
+            $_SESSION['error'] = "Username is required";
         }
-        if(empty($email)) {
+        if (empty($email)) {
             array_push($errors, "Email is required");
+            $_SESSION['error'] = "Email is required";
         }
-        if(empty($password_1)) {
+        if (empty($password_1)) {
             array_push($errors, "Password is required");
+            $_SESSION['error'] = "Password is required";
         }
-        if($password_1 != $password_2) {
+        if ($password_1 != $password_2) {
             array_push($errors, "The two passwords do not match");
+            $_SESSION['error'] = "The two passwords do not match";
         }
 
-        $user_check_query = "SELECT * FROM user WHERE username = '$username' OR email = '$email' ";
+        $user_check_query = "SELECT * FROM user WHERE username = '$username' OR email = '$email' LIMIT 1";
         $query = mysqli_query($conn, $user_check_query);
         $result = mysqli_fetch_assoc($query);
         

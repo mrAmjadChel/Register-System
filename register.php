@@ -1,4 +1,7 @@
-<?php include('server.php'); ?>
+<?php 
+    session_start();
+    include('server.php'); 
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +19,17 @@
     </div>
 
     <form action="register_db.php" method="post">
+        <?php include('errors.php'); ?>
+        <?php if (isset($_SESSION['error'])) : ?>
+            <div class="error">
+                <h3>
+                    <?php 
+                        echo $_SESSION['error'];
+                        unset($_SESSION['error']);
+                    ?>
+                </h3>
+            </div>
+        <?php endif ?>
         <div class="input_group">
             <label for="username">Username</label>
             <input type="text" name="username">
